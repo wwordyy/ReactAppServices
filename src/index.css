@@ -1,0 +1,18 @@
+button{
+  width: 150px;
+  height: 25px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 10px;
+  background-color: black;
+  color: #ffffff;
+}
+
+button:hover{
+  background-color: #ffffff;
+  color: black;
+  border: 1px solid black;
+  transition: 0.3s;
+  cursor: pointer;
+}
+

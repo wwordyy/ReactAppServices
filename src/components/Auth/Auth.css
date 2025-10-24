@@ -1,0 +1,45 @@
+.login-container, .register-container {
+  max-width: 320px;
+  margin: 40px auto;
+  padding: 20px 25px;
+  background-color: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.login-container,.register-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.login-container, .register-container label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--button-hover-bg);
+  transition: color 0.3s;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"],
+.register-container input[type="password"],
+.register-container input[type="email"] {
+  width: 95%;
+  padding: 5px;
+  margin-bottom: 20px;
+  border: 1.5px solid black;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease, background-color 0.3s, color 0.3s;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+
+

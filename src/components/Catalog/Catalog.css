@@ -1,0 +1,19 @@
+.catalog {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+    justify-content: center; 
+    padding: 20px;
+    font-family: 'TT Travels regular';
+        min-height: 150vh; 
+        min-width: 152vh;
+
+}
+
+h1 {
+    font-size: 2rem;
+    color: #222;
+    margin: 20px 0;
+    text-align: center;
+    font-family: 'TT Travels Black';
+}

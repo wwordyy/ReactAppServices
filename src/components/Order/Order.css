@@ -1,0 +1,34 @@
+
+
+.order-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+    justify-content: center; 
+    padding: 20px;
+    font-family: 'TT Travels regular';
+}
+
+h1 {
+    font-size: 2rem;
+    color: #222;
+    margin: 20px 0;
+    text-align: center;
+    font-family: 'TT Travels Black';
+}
+
+.sum-container{
+    padding-right: 20px;
+    font-size: 15px;
+    display: flex;
+    justify-content: end;
+    font-family: 'TT Travels regular';
+
+}
+
+
+.btn-wrapper{
+    display: flex;
+    justify-content: center;
+
+}

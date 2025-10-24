@@ -1,0 +1,48 @@
+form {
+  background-color: #fff;
+  color: #000;
+  max-width: 400px;
+  padding: 20px;
+  font-family: 'TT Travels regular';
+}
+
+
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #000;
+  border-radius: 2px;
+  background-color: #fff;
+  color: #000;
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  margin-left: 0;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+
+.block-content{
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-top: 100px;
+    padding: 20px;
+
+}
+
+.block-content h2{
+    font-family: 'TT Travels Black';
+}
