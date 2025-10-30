@@ -25,6 +25,7 @@ function Login () {
 
             localStorage.setItem('orderID', response.orderID)
             localStorage.setItem('roleID', response.roleID)
+            localStorage.setItem('userID', response.userID)
             console.log("Успешный вход в систему")
 
 
@@ -46,13 +47,16 @@ function Login () {
             <h1>Добро пожаловать</h1>
 
             <form onSubmit={handleLogin}>
+                
                 <label>Email</label>
-                <input type="email" placeholder="Введите email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                <input type="email" placeholder="Введите email" value={email}  required
+                onChange={(e) => setEmail(e.target.value)}/>
+
 
             <label>Password</label>
-                <input type="password" placeholder="Введите пароль" min={5} value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+            <input type="password" placeholder="Введите пароль" min={5} value={password} required
+                onChange={(e) => setPassword(e.target.value)}
+            />
 
                 <NavLink to={'/register'}>Регистрация</NavLink>
                 <br />

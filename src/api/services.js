@@ -62,3 +62,53 @@ export async function deleteServiceByIdFromOrder(order_ID, service_ID) {
     return await response.json();
     
 }
+
+
+
+export async function createService(data) {
+
+  const response = await fetch(API_SERVICES_URL, {
+    method: 'POST',
+    headers: { 'Content-type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errData = await response.json();
+    throw new Error(errData.err || "Ошибка сервера");
+  }
+
+  return await response.json();
+
+}
+
+export async function updateService(id, data) {
+
+  const response = await fetch(`${API_SERVICES_URL}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errData = await response.json();
+    throw new Error(errData.err || "Ошибка сервера");
+  }
+
+  return await response.json();
+}
+
+export async function deleteService(id) {
+    
+  const response = await fetch(`${API_SERVICES_URL}/${id}`, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) {
+    const errData = await response.json();
+    throw new Error(errData.err || "Ошибка сервера");
+  }
+
+  return await response.json();
+
+}

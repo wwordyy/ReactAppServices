@@ -1,7 +1,5 @@
 import Dashboard from '../Dashboard/Dashboard';
-import './Admin.css'
-import Categories from './Categories/Categories';
-import Coupons from './Coupons/Coupons';
+import { Link } from 'react-router-dom';
 
 
 function Admin() {
@@ -9,13 +7,14 @@ function Admin() {
         <div >
             <Dashboard/>
 
-        <div className='block-content'>
-            
-                <Coupons/>
-
-                <Categories/>
-
-        </div>
+            <nav className="admin-nav">
+                <Link to="/admin/users" className="admin-nav-button">Пользователи</Link>
+                  <Link to="/admin/orders" className="admin-nav-button">Заказы</Link>
+                <Link to="/admin/categories" className="admin-nav-button">Категории</Link>
+                <Link to="/admin/statuses" className="admin-nav-button">Статусы</Link>
+                <Link to="/admin/reviews" className="admin-nav-button">Отзывы</Link>
+                <Link to="/admin/services" className="admin-nav-button">Услуги</Link>
+            </nav>
 
         </div>
 

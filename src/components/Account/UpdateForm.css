@@ -1,0 +1,54 @@
+.account-container {
+  max-width: 420px;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 14px;
+    font-family: 'TT Travels Regular';
+}
+
+.wrapper-h2{
+    display: flex;
+    width: 100%;
+    font-family: 'TT Travels Black';
+    justify-content: center;
+    margin-top: 1%;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus {
+  border-color: #313131;
+  outline: none;
+}
+
+p {
+  margin-top: 0;
+  font-size: 13px;
+}

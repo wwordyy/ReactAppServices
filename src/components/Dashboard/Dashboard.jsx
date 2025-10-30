@@ -40,6 +40,33 @@ function Dashboard()
 
                 </li>
 
+                
+                <li>
+                       {roleId != null ? (<NavLink
+                        to="/reviews"
+                        className={({ isActive }) =>
+                        isActive ? "nav-link active" : "nav-link"
+                        }
+                       >
+                        Отзывы
+                       </NavLink>) : ""} 
+
+                </li>
+
+
+                <li>
+                       {roleId != null ? (<NavLink
+                        to="/personalCabinet"
+                        className={({ isActive }) =>
+                        isActive ? "nav-link active" : "nav-link"
+                        }
+                       >
+                        Аккаунт
+                       </NavLink>) : ""} 
+
+                </li>
+               
+
                 <li>
                     {roleId == 2 ? (<NavLink
                     to="/admin"

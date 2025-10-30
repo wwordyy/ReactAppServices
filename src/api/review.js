@@ -1,7 +1,9 @@
-const API_CATEGORIES_URL = 'http://localhost:3001/api/categories';
 
-export async function getCategories() {
-    const response = await fetch(API_CATEGORIES_URL, {
+const API_URL_REVIEW = 'http://localhost:3001/api/reviews'
+
+
+export async function getAllReviews() {
+    const response = await fetch(API_URL_REVIEW, {
         method: 'GET',
     });
 
@@ -13,9 +15,8 @@ export async function getCategories() {
     
 }
 
-
-export async function createCategory(data) {
-    const response = await fetch(API_CATEGORIES_URL, {
+export async function createReview(data) {
+    const response = await fetch(API_URL_REVIEW, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
@@ -28,35 +29,16 @@ export async function createCategory(data) {
         const errData = await response.json();
         throw new Error(errData.err || "Ошибка сервера")
     }
-    
     return await response.json()
     
 }
 
-
-
-export async function updateCategory(id, data) {
-
-  const response = await fetch(`${API_CATEGORIES_URL}/${id}`, {
+export async function updateReview(id, data) {
+    
+  const response = await fetch(`${API_URL_REVIEW}/${id}`, {
     method: 'PUT',
     headers: { 'Content-type': 'application/json' },
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
-    const errData = await response.json();
-    throw new Error(errData.err || "Ошибка сервера");
-  }
-
-
-  return await response.json();
-
-}
-
-export async function deleteCategory(id) {
-    
-  const response = await fetch(`${API_CATEGORIES_URL}/${id}`, {
-    method: 'DELETE',
+    body: JSON.stringify(data)
   });
 
   if (!response.ok) {
@@ -67,3 +49,21 @@ export async function deleteCategory(id) {
 
   return await response.json();
 }
+
+
+
+export async function deleteReview(id) {
+
+  const response = await fetch(`${API_URL_REVIEW}/${id}`, {
+    method: 'DELETE'
+  });
+
+
+  if (!response.ok) {
+    const errData = await response.json();
+    throw new Error(errData.err || "Ошибка сервера");
+  }
+  
+  return await response.json();
+}
+

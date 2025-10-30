@@ -30,7 +30,7 @@ function Aside({onCategoriesChange})
   }, []); 
 
     const handleCheckboxChange = (id) => {
-    
+      
     setCheckedCategories(prev => {
       const updated = { ...prev, [id]: !prev[id] }
 
@@ -47,7 +47,7 @@ function Aside({onCategoriesChange})
     <aside style={{
         borderRight: "1px solid #4c4c4cff", 
         padding: "10px", 
-        maxWidth: "100px"
+        maxWidth: "115px"
         }}>
       <h3>Категории</h3>
 

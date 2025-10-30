@@ -5,7 +5,6 @@
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  background-color: #fafafa;
   box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
 }
 
@@ -14,6 +13,7 @@
 .payment-container form {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .payment-container label {
@@ -23,7 +23,8 @@
   color: #333;
 }
 
-.payment-container input[type="text"] {
+.payment-container input[type="text"],
+.payment-container input[type="date"] {
   padding: 8px 10px;
   width: 375px;
   margin-bottom: 12px;
@@ -33,10 +34,6 @@
   transition: border-color 0.3s ease;
 }
 
-.payment-container input[type="text"]:focus {
-  outline: none;
-  border-color: #000000;
-}
 
 
 

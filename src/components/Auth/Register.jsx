@@ -11,26 +11,36 @@ function Register () {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [middleName, setMiddleName] = useState("");
+    const [phone, setPhone] = useState('');
     const [error, setError] = useState(null);
 
     const handleRegister = async (e) => {
-    e.preventDefault();
-    setError(null);
+        e.preventDefault();
+        setError(null);
 
+        const data  = {
+            firstName: firstName,
+            lastName: lastName,
+            middleName: middleName,
+            phone: phone,
+            email: email,
+            password: password
 
-    try{
-        await postRegister({email, password})
-        console.log("Успешный вход в систему")
+        }
 
-        navigate('/login')
-    } catch (err) {
-        setError(err.message);
+        try{
+            await postRegister(data)
+            console.log("Успешный вход в систему")
+
+            navigate('/login')
+        } catch (err) {
+            setError(err.message);
+        }
     }
-}
-
-
-
-
+    
     return (
 
         <div>
@@ -42,13 +52,35 @@ function Register () {
             <h1>Добро пожаловать</h1>
 
             <form onSubmit={handleRegister}>
-                <label>Email</label>
-                <input type="email" placeholder="Введите email" value={email} onChange={(e) => setEmail(e.target.value)}/>
 
-            <label>Password</label>
-                <input type="password" placeholder="Введите пароль" minLength={5} value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                <label>Имя</label>
+                <input type="text" placeholder="Введите имя" minLength={5} maxLength={49} value={firstName} required
+                    onChange={(e) => setFirstName(e.target.value)}/>
+
+                
+                <label>Фамилия</label>
+                <input type="text" placeholder="Введите фамилию" minLength={5} maxLength={49} value={lastName} required
+                    onChange={(e) => setLastName(e.target.value)}/>
+
+                <label>Отчество</label>
+                <input type="text" placeholder="Введите отчество (если оно есть)"  maxLength={49} value={middleName} 
+                    onChange={(e) => setMiddleName(e.target.value)}/>
+
+                <label>Телефон</label>
+                <input type="text" placeholder="Введите номер телефона" minLength={11} maxLength={11} value={phone} required
+                    onChange={(e) => setPhone(e.target.value)}/>
+
+
+
+                <label>Email</label>
+                <input type="email" placeholder="Введите email" value={email} required
+                    onChange={(e) => setEmail(e.target.value)}/>
+
+                <label>Пароль</label>
+                <input type="password" placeholder="Введите пароль" minLength={5} value={password} required
+                    onChange={(e) => setPassword(e.target.value)}/>
+
+                
 
                 <NavLink to={'/login'}>Авторизация</NavLink>
                 <br />

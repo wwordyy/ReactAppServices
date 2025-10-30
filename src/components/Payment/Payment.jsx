@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Dashboard from "../Dashboard/Dashboard";
-import { postDiscount } from "../../api/coupons";
 import './Payment.css'
 import { putOrder } from "../../api/orders";
 import { useNavigate } from "react-router-dom";
@@ -10,48 +9,19 @@ function Payment()
 {
     const sum = localStorage.getItem('sum');
     const navigate = useNavigate();
-    const [coupon, setCoupon] = useState("");
     const orderID = localStorage.getItem("orderID");
-    const [discountedSum, setDiscountedSum] = useState(null);
-    const [error, setError] = useState(null);
 
-    const handleDiscount = async (e) => {
+    const [adress, setAdress] = useState('');
+    const [dateOfDelivery, setDateOfDelivery] = useState('');
+    const today = new Date().toISOString().split('T')[0];
 
-        e.preventDefault();
-
-        const data = {
-            'coupon_code': coupon,
-            'orderID': orderID,
-            'sum': parseInt(sum)
-        };
-
-        try{
-            const response = await postDiscount(data);
-
-            if (response.sum)
-            {
-                setDiscountedSum(response.sum);
-                setError(null);
-                alert("Купен применен!")
-                localStorage.setItem('sum', response.sum)
-            }
-            else if (response.data)
-            {
-                setError(response.data);
-                setDiscountedSum(null);
-            }
-            
-        } catch(err) {
-            setError(err.message);
-            setDiscountedSum(null);
-        }
-    }
 
     const handlePayment = async () => {
-        const currentSum = localStorage.getItem('sum') || sum;
         const data = {
+            dateOfDelivery: dateOfDelivery, 
+            address: adress,
             orderID: orderID,
-            sum: parseFloat(currentSum)
+            sum: parseFloat(sum)
         };
 
         if (!orderID) {
@@ -60,9 +30,11 @@ function Payment()
         }
 
         const response = await putOrder(data);
+
         if (response && response.orderID) {
             localStorage.setItem('orderID', response.orderID);
-            alert(`Совершена покупка на сумму: ${currentSum}`);
+            alert(`Совершена покупка на сумму: ${sum} ₽`);
+
             navigate('/');
         } else {
             alert('Ошибка при оформлении заказа');
@@ -82,26 +54,20 @@ function Payment()
             <div  className="payment-container">
                 
 
-                <form onSubmit={handleDiscount}>
-                
+                <form>
+        
+                    <label >Адрес</label>
+                    <input type="text" placeholder="Введите адрес доставки" 
+                    required minLength={5} value={adress} onChange={e => setAdress(e.target.value)} />
 
-                    <label>Скидка</label>
+                        <label >Дата доставки</label>
+                    <input type="date" placeholder="Введите дату доставки" 
+                    required minLength={5} value={dateOfDelivery}  min={today} onChange={e => setDateOfDelivery(e.target.value)} />
 
-                    <input type="text" placeholder="Код купона (необязательно)" 
-                    value={coupon} onChange={(e) => setCoupon(e.target.value)}/>
+                    <button type="button" onClick={handlePayment}>Оформить покупку</button>
 
-                        <div className="buttons-row">
-                            <button type="submit">Применить купон</button>
-                            <button type="button" onClick={handlePayment}>Оформить покупку</button>
-                    </div>
-
-
-                    {discountedSum !== null && (<p>Сумма со скидкой: {discountedSum.toFixed(2)}</p>)}
-
-                      {discountedSum == null && (<p>Общая сумма заказа: {sum}</p>)}
-                    
-                       {error && <p style={{ color: "red" }}>{error}</p>}
-
+                <p>Общая сумма заказа: {sum} ₽</p>
+        
                 </form>
 
                 
