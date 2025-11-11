@@ -64,6 +64,32 @@ exports.getUserById = async(req, res) => {
 
 }
 
+
+// ! PATCH - удаление адреса по умолчанию
+exports.patchDellDefaultAdress = async (req, res) => {
+
+  const userID = req.params.userID;
+
+  try {
+    const result = await pool.query(
+      'UPDATE Users SET default_address = $1 WHERE ID_user = $2',
+      [null, userID]
+    );
+    if (result.rowCount === 0) {
+      return res.status(404).json({ err: "Пользователь не найден" });
+    }
+
+    return res.status(200).json({});
+
+  } catch (err) {
+    console.error("Ошибка сервера:", err);
+    return res.status(500).json({ err: "Внутренняя ошибка сервера" });
+  }
+};
+
+
+
+
 //! PUT - Обноавление user
 exports.putUser = async (req, res) => {
 
@@ -151,3 +177,25 @@ exports.deleteUser = async (req, res) => {
     return res.status(500).json({ err: "Внутренняя ошибка сервера" });
   }
 };
+
+
+
+
+exports.patchDefaultAdress = async(req, res) => {
+  const {defaultAddress, userID} = req.body;
+
+  try{
+    console.log('[patch] Запрос на добавления адреса по умолчанию')
+
+    await pool.query('UPDATE Users SET default_address = $1 WHERE ID_user = $2', [defaultAddress, userID])
+
+
+    res.status(200).json({})
+
+
+  } catch(err) {
+    console.error("Ошибка сервера:", err);
+    return res.status(500).json({ err: "Внутренняя ошибка сервера" });
+  }
+
+}

@@ -1,18 +1,21 @@
 import './ServiceCard.css'
 import { postAddServiceToOrder } from '../../api/services'
 import { deleteServiceByIdFromOrder } from '../../api/services'
+import { useNavigate } from 'react-router-dom'
 
 
 function ServiceCard({id_service, title, description, service_time, price, category, isOrdered})
 {
 
     const orderID = localStorage.getItem('orderID')
+    const navigate = useNavigate()
 
     async function handleAddService() {
         
         if (!orderID)
         {
             alert("Необходимо авторизоваться!")
+            navigate('/login')
             return 
         }
 

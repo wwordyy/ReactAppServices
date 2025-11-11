@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dashboard from "../Dashboard/Dashboard";
 import './Payment.css'
 import { putOrder } from "../../api/orders";
 import { useNavigate } from "react-router-dom";
+import { getUserById } from "../../api/users";
 
 
 function Payment()
@@ -10,10 +11,36 @@ function Payment()
     const sum = localStorage.getItem('sum');
     const navigate = useNavigate();
     const orderID = localStorage.getItem("orderID");
+    
 
     const [adress, setAdress] = useState('');
     const [dateOfDelivery, setDateOfDelivery] = useState('');
     const today = new Date().toISOString().split('T')[0];
+
+
+    const roleID = Number(localStorage.getItem('roleID'));
+
+
+    if (roleID === 2) {
+        return <Navigate to="/admin" replace />;
+    }
+
+    useEffect( () => {
+        async function fetchUser() {
+            const data = await getUserById(localStorage.getItem('userID'))
+
+
+
+            if (data.user.default_address !== null)
+            {
+                console.log(data.user.default_address)
+                setAdress(data.user.default_address);
+            }
+        }
+
+        fetchUser()
+
+    }, [])
 
 
     const handlePayment = async () => {

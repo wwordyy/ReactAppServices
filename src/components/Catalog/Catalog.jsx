@@ -3,12 +3,20 @@ import { useEffect, useState } from 'react';
 import { getAllServices } from '../../api/services'
 import ServiceCard from '../ServiceCard/ServiceCard';
 import './Catalog.css'
+import { Navigate } from "react-router-dom";
 
 
 function Catalog ({ selectedCategoryIds }) {
 
      const [allServices, setAllServices] = useState([]);
     const [filteredServices, setFilteredServices] = useState([]);
+    const roleID = Number(localStorage.getItem('roleID'));
+
+
+    if (roleID === 2) {
+        return <Navigate to="/admin" replace />;
+    }
+
 
     useEffect(() => {
         async function fetchServices() {

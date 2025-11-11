@@ -20,15 +20,7 @@ function Dashboard()
                         Заказ
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink
-                        to="/login"
-                        className={({ isActive }) =>
-                            isActive ? "nav-link active" : "nav-link"
-                        }>
-                        Войти
-                    </NavLink>
-                </li>
+   
                 <li>
                     <NavLink
                         to="/"
@@ -40,6 +32,15 @@ function Dashboard()
 
                 </li>
 
+                             <li>
+                    { roleId == null ? (<NavLink
+                        to="/login"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }>
+                        Войти
+                    </NavLink>) : null}
+                </li>
                 
                 <li>
                        {roleId != null ? (<NavLink
@@ -67,15 +68,9 @@ function Dashboard()
                 </li>
                
 
-                <li>
-                    {roleId == 2 ? (<NavLink
-                    to="/admin"
-                    className={({ isActive }) =>
-                        isActive ? "nav-link active" : "nav-link"
-                    }>
-                    Админка
-                    </NavLink>) : ""}
-                </li>
+    
+
+      
             </ul>
         </div>
     );

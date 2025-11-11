@@ -12,6 +12,7 @@ function FormUpdAccount() {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
+    const roleID = Number(localStorage.getItem('roleID'))
 
     const [userData, setUserData] = useState({
         ID_user: "",
@@ -27,6 +28,15 @@ function FormUpdAccount() {
 
     useEffect(() => {
         async function fetchUser() {
+
+                if (roleID == 2) 
+                {
+                    return  navigate('/admin')
+                }
+                if (roleID == 0)
+                {
+                    return navigate('/login')
+                }
             const data = await getUserById(userID);
 
             if (data.user) {
@@ -57,6 +67,12 @@ function FormUpdAccount() {
             if (newPassword !== confirmPassword) {
                 setError("Пароли не совпадают");
                 return;
+            }
+
+
+            if (!/^\d{11}$/.test(userData.phone)) {
+            setError("Номер телефона должен содержать ровно 11 цифр");
+            return;
             }
 
               const updatedData = {
@@ -91,38 +107,43 @@ function FormUpdAccount() {
            
                     <div>
                         <label>Email:</label>
-                        <input type="email" name="user_email"  value={userData.user_email} onChange={handleChange} />
+                        <input type="email" name="user_email"  value={userData.user_email} onChange={handleChange}  />
                     </div>
                 
                     <div>
                         <label>Имя:</label>
                         <input 
-                        type="text" name="first_name" value={userData.first_name} onChange={handleChange}
+                        type="text" name="first_name" value={userData.first_name} onChange={handleChange} minLength={2} maxLength={49} 
                         required 
                         />
                     </div>
                     <div>
                         <label>Фамилия:</label>
                         <input 
-                        type="text"  name="last_name" value={userData.last_name} onChange={handleChange}
+                        type="text"  name="last_name" value={userData.last_name} onChange={handleChange} minLength={2} maxLength={49} 
                         required 
                         />
                     </div>
                     <div>
                         <label>Отчество:</label>
                         <input 
-                        type="text" name="middle_name" value={userData.middle_name || ""} onChange={handleChange} 
+                        type="text" name="middle_name" value={userData.middle_name || ""} onChange={handleChange} maxLength={49} 
                         />
                     </div>
                     <div>
                         <label>Телефон:</label>
                         <input 
-                        type="tel" name="phone" value={userData.phone} onChange={handleChange}
+                        type="tel" name="phone" value={userData.phone}  onChange={(e) => {
+                            const onlyNums = e.target.value.replace(/\D/g, '');
+                            setUserData(prev => ({ ...prev, phone: onlyNums }));
+                        }}
+                        minLength={11} maxLength={11}
                         required 
                         />
 
 
                         <div>
+                            <br />
                     <label>Новый пароль:</label>
                     <input
                         type="password"

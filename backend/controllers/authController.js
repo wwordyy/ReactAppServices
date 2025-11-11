@@ -113,3 +113,40 @@ exports.login =  async(req, res) => {
     
 
 }
+
+
+exports.changePassword = async (req, res) => {
+
+    try{
+        console.log("[POST] Смена пароля")
+        const {email, newPassword} = req.body
+
+        const data = await pool.query('SELECT * FROM Users  WHERE user_email = $1', [email])
+
+        if (data.rows.length == 0) {
+            console.log("Пользователь с таким email не найден")
+           return  res.status(400).json({
+                err: 'Пользователь с таким email не найден'
+            })
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        
+        await pool.query('UPDATE users  SET user_password = $1 WHERE user_email = $2', 
+            [hashedPassword, email])
+
+
+        return res.status(200).json({
+            data: 'Данные пользователя обновлены'
+        })
+
+
+    } catch (err) {
+    console.log("Ошибка при смене пароля!")
+    res.status(500).json({
+        err: `Внутреняя ошибка сервера: ${err.message}` 
+    })
+
+    }
+
+}

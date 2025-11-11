@@ -1,6 +1,8 @@
 
 const API_URL_REVIEW = 'http://localhost:3001/api/reviews'
 
+const API_URL_DATA_REVIEWS = 'http://localhost:3001/api/getAllDataReviews'
+
 
 export async function getAllReviews() {
     const response = await fetch(API_URL_REVIEW, {
@@ -67,3 +69,31 @@ export async function deleteReview(id) {
   return await response.json();
 }
 
+
+
+export async function getAllDataReviews() {
+      const response = await fetch(API_URL_DATA_REVIEWS, {
+        method: 'GET',
+    });
+
+    if (!response.ok)
+    {
+        throw new Error("Не удалось получить данные!");
+    }
+    return await response.json();
+  
+}
+
+
+export async function getReviewByUserId(id) {
+      const response = await fetch(`http://localhost:3001/api/getReview/${id}`, {
+        method: 'GET',
+    });
+
+    if (!response.ok)
+    {
+        throw new Error("Не удалось получить данные!");
+    }
+    return await response.json();
+  
+}

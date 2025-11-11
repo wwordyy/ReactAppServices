@@ -1,18 +1,23 @@
-import Dashboard from '../Dashboard/Dashboard';
-import { Link } from 'react-router-dom';
-
+import { Link, Navigate} from 'react-router-dom';
+import DashboardAdmin from '../Dashboard/DashboardAdmin';
 
 function Admin() {
+
+    const roleID = Number(localStorage.getItem('roleID'));
+
+
+  if (roleID !== 2) {
+    return <Navigate to="/" replace />;
+  }
+
+
+
     return (
         <div >
-            <Dashboard/>
+          <DashboardAdmin/>
 
             <nav className="admin-nav">
-                <Link to="/admin/users" className="admin-nav-button">Пользователи</Link>
-                  <Link to="/admin/orders" className="admin-nav-button">Заказы</Link>
                 <Link to="/admin/categories" className="admin-nav-button">Категории</Link>
-                <Link to="/admin/statuses" className="admin-nav-button">Статусы</Link>
-                <Link to="/admin/reviews" className="admin-nav-button">Отзывы</Link>
                 <Link to="/admin/services" className="admin-nav-button">Услуги</Link>
             </nav>
 

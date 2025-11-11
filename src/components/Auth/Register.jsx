@@ -1,7 +1,7 @@
 import './Auth.css'
 import { useState } from "react";
 import { postRegister } from "../../api/auth";
-import { NavLink, useNavigate} from 'react-router-dom';
+import { Navigate, NavLink, useNavigate} from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
 
 
@@ -17,9 +17,26 @@ function Register () {
     const [phone, setPhone] = useState('');
     const [error, setError] = useState(null);
 
+    
+    const roleIdFromStorage = Number(localStorage.getItem('roleID'));
+
+
+        
+    if (roleIdFromStorage === 2) {
+        return <Navigate to="/admin" replace />;
+    }
+
+
+
     const handleRegister = async (e) => {
         e.preventDefault();
         setError(null);
+
+
+        if (!/^\d{11}$/.test(phone)) {
+        setError("Номер телефона должен содержать ровно 11 цифр");
+        return;
+        }
 
         const data  = {
             firstName: firstName,
@@ -45,7 +62,14 @@ function Register () {
 
         <div>
 
-            <Dashboard/>
+            
+        {roleIdFromStorage === 1 ? (
+            <Dashboard />
+            ) : roleIdFromStorage === 2 ? (
+            <DashboardAdmin />
+            ) : (
+            <Dashboard />
+            )}
 
 
             <div className="register-container">
@@ -54,12 +78,12 @@ function Register () {
             <form onSubmit={handleRegister}>
 
                 <label>Имя</label>
-                <input type="text" placeholder="Введите имя" minLength={5} maxLength={49} value={firstName} required
+                <input type="text" placeholder="Введите имя" minLength={2} maxLength={49} value={firstName} required
                     onChange={(e) => setFirstName(e.target.value)}/>
 
                 
                 <label>Фамилия</label>
-                <input type="text" placeholder="Введите фамилию" minLength={5} maxLength={49} value={lastName} required
+                <input type="text" placeholder="Введите фамилию" minLength={2} maxLength={49} value={lastName} required
                     onChange={(e) => setLastName(e.target.value)}/>
 
                 <label>Отчество</label>
@@ -68,7 +92,10 @@ function Register () {
 
                 <label>Телефон</label>
                 <input type="text" placeholder="Введите номер телефона" minLength={11} maxLength={11} value={phone} required
-                    onChange={(e) => setPhone(e.target.value)}/>
+                      onChange={(e) => {
+                        const onlyNums = e.target.value.replace(/\D/g, '');
+                        setPhone(onlyNums);
+                    }}/>
 
 
 
@@ -77,7 +104,7 @@ function Register () {
                     onChange={(e) => setEmail(e.target.value)}/>
 
                 <label>Пароль</label>
-                <input type="password" placeholder="Введите пароль" minLength={5} value={password} required
+                <input type="password" placeholder="Введите пароль" minLength={5} value={password} required maxLength={49}
                     onChange={(e) => setPassword(e.target.value)}/>
 
                 

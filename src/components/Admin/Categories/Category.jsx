@@ -1,12 +1,34 @@
-import React, { useState } from "react";
-import { createCategory, updateCategory, deleteCategory } from "../../../api/categories";
-import Dashboard from '../../Dashboard/Dashboard';
+import React, { useEffect, useState } from "react";
+import { createCategory, updateCategory, deleteCategory, getCategories } from "../../../api/categories";
+import DashboardAdmin from '../../Dashboard/DashboardAdmin';
+
 import '../Admin.css'
+import { Navigate } from "react-router-dom";
 
 function AdminCategories() {
   const [categoryId, setCategoryId] = useState("");
   const [title, setTitle] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+
+  const [categories, setCategories] = useState([]);
+
+
+    const roleID = Number(localStorage.getItem('roleID'));
+
+      if (roleID !== 2) {
+        return <Navigate to="/" replace />;
+      }
+
+      
+        useEffect(() => {
+          async function fetchCategories() {
+            const response = await getCategories()
+      
+            setCategories(response.data)
+          }
+      
+          fetchCategories()
+        }, [])
 
   async function handleCreate(e) {
     e.preventDefault();
@@ -18,6 +40,8 @@ function AdminCategories() {
       await createCategory({ title });
       alert("Категория создана");
       setTitle("");
+
+      window.location.reload();
     } catch (error) {
       alert("Ошибка создания: " + error.message);
     }
@@ -26,7 +50,7 @@ function AdminCategories() {
   async function handleUpdate(e) {
     e.preventDefault();
     if (!categoryId) {
-      alert("Введите ID категории");
+      alert("Выберите категорию для обновления!");
       return;
     }
     try {
@@ -35,6 +59,9 @@ function AdminCategories() {
       setCategoryId("");
       setTitle("");
       setIsEditing(false);
+
+
+           window.location.reload();
     } catch (error) {
       alert("Ошибка обновления: " + error.message);
     }
@@ -42,14 +69,17 @@ function AdminCategories() {
 
   async function handleDelete() {
     if (!categoryId) {
-      alert("Введите ID категории");
+      alert("Выберите категорию!");
       return;
     }
-    if (!window.confirm("Удалить категорию с ID " + categoryId + "?")) return;
-    try {
+    if (!window.confirm("Удалить категорию с названием: " + title + "?")) return;
+    try { 
       await deleteCategory(categoryId);
       alert("Категория удалена");
       setCategoryId("");
+
+
+      window.location.reload();
     } catch (error) {
       alert("Ошибка удаления: " + error.message);
     }
@@ -58,21 +88,37 @@ function AdminCategories() {
   return (
     <div>
 
-        <Dashboard/>
+        <DashboardAdmin/>
 
         <div className="admin-container">
 
               <h2>Админка категорий</h2>
               <form onSubmit={isEditing ? handleUpdate : handleCreate}>
                 {isEditing && (
-                  <input
-                    type="text"
-                    placeholder="ID категории"
+                  <select
                     value={categoryId}
-                    onChange={(e) => setCategoryId(e.target.value)}
+                    onChange={(e) => {
+
+                      const selectedId = e.target.value;
+                      setCategoryId(selectedId);
+                      const selectedCategory = categories.find(cat => String(cat.id_category) === selectedId);
+                      setTitle(selectedCategory ? selectedCategory.title : "");
+
+                    }}
                     required
-                  />
+                  >
+                    <option value="">Выберите категорию</option>
+
+                    {categories.map((cat) => (
+                      <option key={cat.id_category} value={cat.id_category}>
+                        {cat.title}
+                      </option>
+                    ))}
+
+                  </select>
                 )}
+
+                <label style={{'margin-top': '10px'}}>Название категории</label>
                 <input
                   type="text"
                   placeholder="Название категории"

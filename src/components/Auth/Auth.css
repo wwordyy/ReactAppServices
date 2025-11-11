@@ -1,4 +1,4 @@
-.login-container, .register-container {
+.login-container, .register-container, .form-change-password {
   max-width: 320px;
   margin: 40px auto;
   padding: 20px 25px;
@@ -10,14 +10,14 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-.login-container,.register-container h1 {
+.login-container,.register-container, .form-change-password h1 {
   text-align: center;
   margin-bottom: 25px;
   font-weight: 600;
   color: var(--text-color);
 }
 
-.login-container, .register-container label {
+.login-container, .register-container, .form-change-password label {
   display: block;
   margin-bottom: 6px;
   font-weight: 500;
@@ -31,7 +31,9 @@
 .login-container input[type="text"],
 .register-container input[type="password"],
 .register-container input[type="email"],
-.register-container input[type="text"]{
+.register-container input[type="text"],
+.form-change-password input[type="password"],
+.form-change-password input[type="email"]{
   width: 95%;
   padding: 5px;
   margin-bottom: 10px;

@@ -1,5 +1,6 @@
 const API_REGISTER_URL = 'http://localhost:3001/api/register';
 const API_LOGIN_URL = 'http://localhost:3001/api/login';
+const API_CHANGE_PASSWORD_URL = 'http://localhost:3001/api/changePassword';
 
 
 export async function postRegister(data) {
@@ -23,6 +24,24 @@ export async function postRegister(data) {
 export async function postLogin(data) {
     
      const response = await fetch(API_LOGIN_URL, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (!response.ok)
+    {
+        const errData = await response.json();
+        throw new Error(errData.err || "Ошибка сервера")
+    }
+    return await response.json()
+}
+
+export async function postChangePassword(data) {
+    
+     const response = await fetch(API_CHANGE_PASSWORD_URL, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'

@@ -1,4 +1,5 @@
 import './Order.css'
+import { Navigate } from "react-router-dom";
 import { getServicesFromOrder } from '../../api/services';
 import { useEffect, useState } from 'react';
 import ServiceCard from '../ServiceCard/ServiceCard';
@@ -11,6 +12,13 @@ function Order () {
     const [services, setServices] = useState([]);
     const [sum, setSum] = useState(0);
     const orderID = localStorage.getItem('orderID');
+
+    const roleID = Number(localStorage.getItem('roleID'));
+
+
+    if (roleID === 2) {
+        return <Navigate to="/admin" replace />;
+    }
 
 
     useEffect(() => {

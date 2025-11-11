@@ -13,7 +13,7 @@ const categoryRouter = require('./routers/categoryRouters')
 const userOrderDataRouter = require('./routers/userOrderDataRouters')
 const reviewRouter = require('./routers/reviewRouters');
 const statusRouter = require('./routers/statusRouters');
-
+const userReviewRouter = require('./routers/userReviewRouters')
 
 
 dotenv.config()
@@ -35,6 +35,7 @@ app.use('/api', categoryRouter);
 app.use('/api', userOrderDataRouter);
 app.use('/api', reviewRouter)
 app.use('/api', statusRouter);
+app.use('/api', userReviewRouter);
 
 
 

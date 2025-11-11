@@ -33,6 +33,7 @@ exports.getUserOrderData = async(req, res) => {
       last_name: data.rows[0].last_name,
       middle_name: data.rows[0].middle_name,
       phone: data.rows[0].phone,
+      defaultAddress: data.rows[0].default_address,
       user_email: data.rows[0].user_email,
       role_ID: data.rows[0].role_id,
     };
